@@ -87,3 +87,31 @@ UPDATE product_type
 SET `name` = "Дебетовая"
 WHERE `name` = "Дебетовая с повышенным кэшбеком";
 
+-- DELETE. 5 штук
+
+-- 21. Удалить специалиста, стаж работы которого - 5 лет
+DELETE from specialist
+WHERE `work_experience` = "5 лет";
+
+-- 22. Удаление случайно созданной таблицы.
+CREATE TABLE `pproduct`(
+	name VARCHAR (100)
+);
+
+DELETE FROM `pproduct`;
+
+-- 23. Удалим новый тип продукта
+INSERT into product_type VALUES (11, "Брокерский счет");
+
+DELETE FROM product_type
+WHERE `name` = "Брокерский счет";
+
+-- 24. Удалить адрес офиса в связи с переездом
+DELETE FROM office
+WHERE address = "Коммунистическая, 15";
+
+-- 25. Удалить информацию по перевыпуска карты, т.к. такая уже присутствует в таблице
+INSERT INTO action_type VALUES (11, "Перевыпуск карты - утеря носителя");
+
+DELETE from action_type
+WHERE id = 11;
