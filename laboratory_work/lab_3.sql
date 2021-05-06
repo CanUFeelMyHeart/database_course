@@ -22,8 +22,8 @@ CREATE TABLE `action` (
 CREATE TABLE `department` (
 	`id` INT NOT NULL AUTO_INCREMENT,
 	`staff` VARCHAR(45) NOT NULL,
-    `id_oficce` INT NOT NULL,
-    `id_type_of_department` INT NOT NULL,
+	`id_oficce` INT NOT NULL,
+ 	`id_type_of_department` INT NOT NULL,
 	PRIMARY KEY (`id`)
 );
 -- 4
@@ -38,18 +38,18 @@ CREATE TABLE `office` (
 CREATE TABLE `petition` (
 	`id` INT NOT NULL AUTO_INCREMENT,
 	`request_number` VARCHAR(45) NOT NULL,
-    `text` VARCHAR(100) NOT NULL,
-    `id_oficce` INT NOT NULL,
-    `id_client` INT NOT NULL,
-    `id_specialist` INT NOT NULL,
+ 	`text` VARCHAR(100) NOT NULL,
+	`id_oficce` INT NOT NULL,
+	`id_client` INT NOT NULL,
+	`id_specialist` INT NOT NULL,
 	PRIMARY KEY (`id`)
 );
 -- 6
 CREATE TABLE `product` (
 	`id` INT NOT NULL AUTO_INCREMENT,
 	`description` VARCHAR(45) NOT NULL,
-    `connection_date` VARCHAR(100) NOT NULL,
-    `id_product` INT NOT NULL,
+	`connection_date` VARCHAR(100) NOT NULL,
+	`id_product` INT NOT NULL,
 	PRIMARY KEY (`id`)
 );
 -- 7
@@ -62,8 +62,8 @@ CREATE TABLE `product_type` (
 CREATE TABLE `service` (
 	`id` INT NOT NULL AUTO_INCREMENT,
 	`description` VARCHAR(45) NOT NULL,
-    `name` VARCHAR(100) NOT NULL,
-    `terms` INT NOT NULL,
+	`name` VARCHAR(100) NOT NULL,
+	`terms` INT NOT NULL,
 	PRIMARY KEY (`id`)
 );
 -- 9
@@ -86,7 +86,7 @@ CREATE TABLE `action_type` (
 CREATE TABLE `department_type` (
 	`id` INT NOT NULL AUTO_INCREMENT,
 	`name` VARCHAR(45) NOT NULL,
-    `description` VARCHAR(45) NOT NULL,
+	`description` VARCHAR(45) NOT NULL,
 	PRIMARY KEY (`id`)
 );
 
