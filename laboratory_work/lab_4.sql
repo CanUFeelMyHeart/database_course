@@ -150,14 +150,16 @@ WHERE `text` = "Нахамили" OR `request_number` = "1110а";
 SELECT *from office
 WHERE`address` = "Ленина,22" OR`oficce_contacts_details` = "62-32-22";
 
--- 34. Отобразить специалистов, чья должность начинается со слова "Специалист"
-SELECT * FROM specialist WHERE `post` LIKE 'Специалист%';
+-- 34. Отобразить все услуги, где наименования "Информация о расходах"
+SELECT *FROM service
+WHERE `description` IN ("Информация о расходах");
 
--- 35. Отобразить специалиста, чья должность - "аналитик"
-SELECT * FROM specialist WHERE `post` LIKE '%аналитик';
+-- 35. Отобразить количество работников
+SELECT DISTINCT staff FROM department;
 
--- 36. Отобразить текст жалобы, где было слово "В течение"
-SELECT *FROM petition WHERE `text` LIKE '%В течение%';
+-- 36. Уникальные значения з/п
+SELECT DISTINCT salary FROM specialist;
+
 
 -- 37. Отобразить все типы продуктов
 SELECT COUNT(*) FROM product_type;
@@ -186,10 +188,30 @@ GROUP BY salary;
 -- 43. Изменим названиея столбцов в таблице "специалистов"
 SELECT work_experience AS work_year, ID as primary_key FROM specialist;
 
--- 44. 
+-- 44. Изменить название "текст" жалобы на "о жалобе"
 SELECT `text` AS `about_petition` FROM petition;
 
--- 45.
+-- 45. Вывести зарплату в пределах [5000, 1000000]
 SELECT *FROM specialist
 WHERE salary>5000 AND salary<1000000;
 
+-- LIKE и другие функции работы со строками
+
+-- 46. Отобразить текст жалобы, где было слово "В течение"
+SELECT *FROM petition WHERE `text` LIKE '%В течение%';
+
+-- 47. Отобразить специалистов, чья должность начинается со слова "Специалист"
+SELECT * FROM specialist WHERE `post` LIKE 'Специалист%';
+
+-- 48. Отобразить специалиста, чья должность - "аналитик"
+SELECT * FROM specialist WHERE `post` LIKE '%аналитик';
+
+-- 49. Вывести все офисы, адреса которых не начинаются с буквы "В"
+SELECT `address`
+FROM office
+WHERE `address` NOT LIKE '%В';
+
+-- 50. Вывести все номера жалоб, в которых нет цифры "1"
+SELECT `request_number`
+FROM petition
+WHERE `request_number` NOT LIKE '%1%';
