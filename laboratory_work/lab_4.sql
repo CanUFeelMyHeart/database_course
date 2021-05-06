@@ -59,3 +59,31 @@ SELECT SUM(DISTINCT salary) as sum FROM specialist;
 
 -- 15. Отобразить специалистов с опытом работы 2 года и зп больше, чем 6000
 SELECT * FROM specialist WHERE work_experience = "2 года" AND salary >= 6000;
+
+-- UPDATE. 5 штук
+
+-- 16. Изменить зарплату сотруднику в связи с повышением
+UPDATE specialist
+SET salary  = 100000
+WHERE `work_experience` = "2 года";
+
+-- 17. Сменить номер телефона клиента в связи с сменой мобильного телефона
+UPDATE client 
+SET mobile_phone = "79276013671"
+WHERE fullname = "Пятаков Д.С.";
+
+-- 18. Изменить дату поделючения (плохой способ)
+UPDATE product
+SET connection_date = "01.05.2001"
+WHERE id = 5;
+
+-- 19. Изменить адрес в связи с переездом
+UPDATE office
+SET address = "Коммунистическая, 4"
+WHERE address = "Коммунистическая,6" ;
+
+-- 20. Изменить данные для конкретного банковского продукта 
+UPDATE product_type
+SET `name` = "Дебетовая"
+WHERE `name` = "Дебетовая с повышенным кэшбеком";
+
