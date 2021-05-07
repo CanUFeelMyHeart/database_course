@@ -215,3 +215,50 @@ WHERE `address` NOT LIKE '%В';
 SELECT `request_number`
 FROM petition
 WHERE `request_number` NOT LIKE '%1%';
+
+-- SELECT INTO, INSERT SELECT
+
+-- 51. Выведем в переменные значения id и описапния по нашему описанию - "Перевод из приложения"
+
+SELECT `description`,`id`  INTO @newtable, @new_id
+FROM action_type
+WHERE `description` = 'Перевод из приложения'; 
+
+SELECT @newtable, @new_id;
+
+-- 52. Создадим пустую тестовую таблицу. В переменную созданной твблицы перенесем данные из существующей страницы.
+
+CREATE TABLE `new_department_type`(
+	`string` VARCHAR (100)
+);
+
+INSERT INTO `new_department_type` (`string`)
+SELECT `description` FROM `department_type`;
+
+SELECT *from `new_department_type`;
+
+-- JOIN. 20 запросов
+
+-- 53. INNER JOIN. Выведем описание и сумму
+SELECT `description`, `amount`
+FROM `action` AS `a`
+JOIN `action_type`  AS `a_t`
+ON a_t.id = a.id;	
+
+-- 54. INNER JOIN. Выведем название отдела и его состав
+SELECT  `staff`, `name`
+FROM  `department` AS `d`
+JOIN `department_type` AS `d_t`
+ON d.id = d_t.id;
+
+-- 55. Такая же логика: название банковского продукта + описание по ID
+SELECT `name`, `description`
+FROM `product` AS `p`
+JOIN `product_type` AS `p_t`
+ON p.id = p_t.id;
+
+-- 56.
+SELECT *
+FROM `product` 
+LEFT JOIN `product_type` 
+ON product.id = product_type.id; 
