@@ -218,6 +218,8 @@ WHERE `request_number` NOT LIKE '%1%';
 
 -- SELECT INTO, INSERT SELECT
 
+-- SELECT INTO, INSERT SELECT
+
 -- 51. Выведем в переменные значения id и описапния по нашему описанию - "Перевод из приложения"
 
 SELECT `description`,`id`  INTO @newtable, @new_id
@@ -257,8 +259,187 @@ FROM `product` AS `p`
 JOIN `product_type` AS `p_t`
 ON p.id = p_t.id;
 
--- 56.
+-- 56. Продукт и его тип - вся информацаия о них
 SELECT *
 FROM `product` 
 LEFT JOIN `product_type` 
 ON product.id = product_type.id; 
+
+-- 57. Выведем специалистов по их офису
+SELECT  *
+FROM specialist s
+LEFT JOIN department d
+ON d.id=s.id;
+
+-- 58. Вывести дату подключения и описание конкретного продукта
+
+SELECT `description`,connection_date
+FROM product p
+LEFT JOIN product_type p_t
+ON(p.id = p_t.id)
+WHERE name = 'Дебетовая';
+
+-- 59. Вывести данные начальника, исключив данные сына - стажера по id
+
+SELECT contact_details,post,salary
+FROM specialist s
+LEFT JOIN department d
+ON (s.id=d.id)
+WHERE contact_details = "+79053918793" AND d.id > 2
+ORDER BY 2 DESC;
+
+-- 60. Выведем всех котиков по магазитнам по id. Пример с котами нагляднее :)
+
+CREATE TABLE `shops` (
+	`id` INT,
+    `shopname` VARCHAR (100),
+    PRIMARY KEY (id)
+);
+CREATE TABLE `cats` (
+	`name` VARCHAR (100),
+    `id` INT,
+    PRIMARY KEY (id),
+    shops_id INT,
+    CONSTRAINT fk_cats_shops_id FOREIGN KEY (shops_id)
+        REFERENCES `shops` (id)
+);
+
+INSERT INTO `shops`
+VALUES 
+		(1, "Четыре лапы"),
+        (2, "Мистер Зоо"),
+        (3, "МурзиЛЛа"),
+        (4, "Кошки и собаки");
+
+INSERT INTO `cats`
+VALUES 
+		("Murzik",1,1),
+        ("Nemo",2,2),
+        ("Vicont",3,1),
+        ("Zuza",4,3);
+
+SELECT `name`, `shopname`
+FROM `cats` 
+JOIN `shops`
+ON shops_id = cats.id;
+
+-- 61. LEFT JOIN. Все значения, что были в шоп_нэйм пустыми, окажутся заполненными NULL
+
+INSERT INTO `cats` VALUES ("Reks", 6, NULL );
+
+SELECT `name`, `shopname`
+FROM `cats` 
+left JOIN `shops`
+ON shops.id = cats.id;
+
+-- 62. Вывести все значения , НО без Рекса (NULL)
+
+SELECT `name`, `shopname`
+FROM `cats` 
+inner JOIN `shops`
+ON shops.id = cats.id;
+
+-- 63.  Заполнит левую таблицу пустыми значениями, если они имеются
+
+INSERT INTO `cats` VALUES ("",8, 4);
+
+SELECT `name`, `shopname`
+FROM `cats` 
+RIGHT JOIN `shops`
+ON shops.id = cats.id;
+
+-- 64. IINER JOIN и CROSS JOIN в mysql одинаковые (такой же рузультат, что и в №62)
+SELECT `name`, `shopname`
+FROM `cats` 
+CROSS JOIN `shops`
+ON shops.id = cats.id;
+
+-- 65. "Декартово объединение" таблиц
+SELECT *from specialist
+JOIN department
+JOIN office
+JOIN department_type;
+
+-- 66. Одинаковые таблицы 1 раз появляются
+SELECT *from specialist
+NATURAL JOIN department;
+
+-- 67. Выведем магазин, в котором продается кот Мурзик
+
+SELECT shopname
+FROM shops s
+LEFT JOIN cats c
+ON (s.id=c.id)
+WHERE name = 'Murzik';
+
+-- 68. Отобразим информацию об котах и их магазинах
+
+SELECT *FROM cats
+JOIN shops;
+
+-- 69. Выведем по ID всех продуктов их типы
+
+SELECT connection_date
+FROM product p
+JOIN product_type p_t
+ON p.id=p_t.id;
+
+-- 70. Тип продукта и его имя по ID
+
+SELECT `name` 
+FROM product_type p_t
+RIGHT JOIN product p
+ON p.id = p_t.id;
+
+-- 71. Декартово объединение
+SELECT *
+FROM service
+JOIN specialist
+JOIN office;
+
+-- 72. Стоблцы используются только 1 раз
+SELECT *
+FROM specialist
+NATURAL JOIN department;
+
+-- 73. То же самое
+SELECT *
+FROM `action`
+NATURAL JOIN action_type;
+
+-- GROUP BY
+
+-- 74. Выведем количество номеров 
+SELECT contact_details, COUNT(*) AS "Total kol"
+FROM specialist
+GROUP BY contact_details;
+
+-- 75. Минимальная зарплата
+SELECT contact_details,MIN(salary) AS "Lowest salary"
+FROM specialist
+GROUP BY contact_details;
+
+-- 76. Максимальная з/п
+SELECT contact_details,MAX(salary) AS "Highest salary"
+FROM specialist
+GROUP BY contact_details;
+
+-- 77. Выбрать количество текста на жалобу конкретного номера
+SELECT `request_number`,COUNT(*) `text`
+FROM `petition`
+GROUP BY `request_number`;
+
+-- 78. Выведем информацию только о 2 котах
+SELECT * 
+FROM cats
+GROUP BY `name` LIMIT 2;
+
+-- 79. Округление зп для конкретных специалистов
+SELECT post,AVG(salary)
+FROM specialist
+GROUP BY post;
+
+-- 80. Вывести количество зарплат по количеству людей,занятых на конкретной  профессии
+SELECT post, COUNT(*)salary
+FROM specialist
+GROUP BY post;
