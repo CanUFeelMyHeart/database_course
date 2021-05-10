@@ -13,4 +13,4 @@
     4)Реализация SQL-запросов базы данных
 
 # Схемы из лабораторных работ №1 и №2 лежат в папке "schema"
-# Остальные лабы - в  папке [laboratory_work]: (https://github.com/CanUFeelMyHeart/database_course/tree/master/laboratory_work/lab_3.sql)
+# Остальные лабы - в  папке [laboratory_work].(/laboratory_work/lab_3.sql)
