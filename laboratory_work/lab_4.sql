@@ -642,3 +642,37 @@ SELECT `id`,
 REPLACE(`name`, ' ', '-') as `text`
 FROM service;
 
+-- МОДА. 
+
+-- Для заданного клиента по ФИО вывести выписку о его действиях по его продуктам.
+
+-- В действиях приjoinить ID, тип действия , без отделения
+
+SELECT  id_type_of_action AS new_id_type_of_action , fullname,`name`, `amount`
+FROM сlient c 
+LEFT JOIN  `product` p 
+ON p.id_client = c.id
+LEFT JOIN `action` a
+ON a.account_subject_id = p.id
+LEFT JOIN `action_type` a_t
+ON a.id_type_of_action = a_t.id
+WHERE c.fullname =  'Авдеева А.А.';
+
+
+-- 2. Вывести клиентов, у которых сумма операций максимальна. Топ - 3.
+
+SELECT amountINT, `fullname`
+FROM сlient c 
+LEFT JOIN `action` a
+ON a.id = c.id
+ORDER BY amountINT DESC
+LIMIT 3;
+
+-- 3. Вывести специалиста, на которого подали больше всего жалоб.
+
+SELECT id_specialist,fullname
+FROM specialist s
+LEFT JOIN petition p
+ON s.id = p.id
+ORDER BY id_specialist DESC
+LIMIT 1;
