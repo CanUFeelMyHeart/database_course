@@ -168,4 +168,75 @@ BEGIN
     WHERE shopname = "Четыре лапы";
 END //
 CALL catsAndShop();
+
+-- 3 функции.
+
+-- 1
+-- Создадим функцию, определяющую к какой группе принадлежит сотрудник
+-- Занимаемую долнжость выведем через локальную переменную correct
+
+DELIMITER $$ 
+CREATE FUNCTION postSpecialist (post varchar(45))
+RETURNS varchar(45)
+DETERMINISTIC
+BEGIN 
+	DECLARE correct VARCHAR(45); 
+    IF post LIKE  'Специалист отдела' THEN SET correct ='Младщий сотрудник'; 
+ELSE SET correct='СТАРШИЙ СПЕЦИАЛИСТ или стажёр'; 
+END IF; 
+RETURN (correct); 
+END $$; 
+DELIMITER $$ 
+
+SELECT post,specialist.fullname AS correct, postSpecialist (post)
+FROM specialist;
+
+-- 2.
+
+-- Проверим, хранит ли наша табличка NULL.
+-- Если Null будет найден, то вывести "0"
+
+DELIMITER $$ 
+CREATE FUNCTION addToNull (
+	firstValue INT,
+    secondValue INT
+)
+RETURNS INT
+DETERMINISTIC
+BEGIN
+	IF firstValue IS NULL THEN
+		SET firstValue = 0;
+	END IF;
     
+    IF secondValue IS NULL THEN
+		SET secondValue = 0;
+	END IF;
+    
+    RETURN (secondValue,firstValue);
+ END $$
+ 
+ SELECT addToNull(code,code_shops) AS nullRow, id
+ FROM cats
+ WHERE id > 1;
+
+-- 3
+
+-- Напишем функцию, которая вычисляет размер кэшбэка по формуле
+
+DELIMITER $$ 
+CREATE FUNCTION Cashback (
+	cashback INT
+)
+RETURNS  INT
+DETERMINISTIC
+BEGIN
+	IF cashback > 5000 AND cashback < 250000 THEN
+		SET cashback = 0.1 * cashback;
+	END IF; 
+RETURN (cashback); 
+END $$; 
+DELIMITER $$ 	
+
+SELECT Cashback(amountINT)
+FROM`action`
+WHERE id < 11;
