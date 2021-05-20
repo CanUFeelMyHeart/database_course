@@ -240,3 +240,28 @@ DELIMITER $$
 SELECT Cashback(amountINT)
 FROM`action`
 WHERE id < 11;
+
+-- Мода
+
+DELIMITER //
+CREATE PROCEDURE createPetition ( 
+	OUT
+	idType INT,
+    idClient INT,
+    termOfExecution DATE
+)
+BEGIN
+    SELECT client.id,specialist.id,petition.id,petiton.term_of_execution, petition.text
+    FROM client
+    JOIN petition 
+    ON client.id = petiton.id
+    JOIN specialist 
+    ON petition.id = specialist.id;
+	SELECT petiton.term_of_execution AS correctDate 
+    FROM petiton
+    WHERE DATE (petiton.term_of_execution) >= "2021-05-20" AND DATE (petiton.term_of_execution) <= "2021-06-20";
+    IF DATE (petiton.term_of_execution) >= "2021-05-20" AND DATE (petiton.term_of_execution) <= "2021-06-20"
+		THEN SET =
+    
+END//
+DELIMITER ;
