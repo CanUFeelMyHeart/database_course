@@ -434,7 +434,7 @@ ON p.id_product_type=p_t.id;
 SELECT `name` 
 FROM product_type p_t
 RIGHT JOIN product p
-ON p.id = p_t.id;
+ON p.id_product_type = p_t.id;
 
 -- 71. Декартово объединение
 
