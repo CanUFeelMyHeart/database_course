@@ -287,38 +287,38 @@ SELECT *from `new_department_type`;
 SELECT `description`, `amount`
 FROM `action` AS `a`
 JOIN `action_type`  AS `a_t`
-ON a_t.id = a.id;	
+ON a_t.id_action = a.id;	
 
 -- 54. INNER JOIN. Выведем название отдела и его состав
 SELECT  `staff`, `name`
 FROM  `department` AS `d`
 JOIN `department_type` AS `d_t`
-ON d.id = d_t.id;
+ON d.id_department_type = d_t.id;
 
 -- 55. Такая же логика: название банковского продукта + описание по ID
 SELECT `name`, `description`
 FROM `product` AS `p`
 JOIN `product_type` AS `p_t`
-ON p.id = p_t.id;
+ON p.id_product_type = p_t.id;
 
 -- 56. Продукт и его тип - вся информацаия о них
 SELECT *
 FROM `product` 
 LEFT JOIN `product_type` 
-ON product.id = product_type.id; 
+ON product.id_product_type = product_type.id; 
 
 -- 57. Выведем специалистов по их офису
 SELECT  *
 FROM specialist s
 LEFT JOIN department d
-ON d.id=s.id;
+ON d.id_specialist=s.id;
 
 -- 58. Вывести дату подключения и описание конкретного продукта
 
 SELECT `description`,connection_date
 FROM product p
 LEFT JOIN product_type p_t
-ON(p.id = p_t.id)
+ON p.id_product_type = p_t.id
 WHERE name = 'Дебетовая';
 
 -- 59. Вывести данные начальника, исключив данные сына - стажера по id
@@ -326,8 +326,8 @@ WHERE name = 'Дебетовая';
 SELECT contact_details,post,salary
 FROM specialist s
 LEFT JOIN department d
-ON (s.id=d.id)
-WHERE contact_details = "+79053918793" AND d.id > 2
+ON s.id_department=d.id
+WHERE contact_details = "+79053918793" AND POST = "Младший специалист"
 ORDER BY 2 DESC;
 
 -- 60. Выведем всех котиков по магазитнам по id. Пример с котами нагляднее :)
@@ -363,7 +363,7 @@ VALUES
 SELECT `name`, `shopname`
 FROM `cats` 
 JOIN `shops`
-ON shops_id = cats.id;
+ON shops.id = cats.shops_id;
 
 -- 61. LEFT JOIN. Все значения, что были в шоп_нэйм пустыми, окажутся заполненными NULL
 
@@ -372,14 +372,14 @@ INSERT INTO `cats` VALUES ("Reks", 6, NULL );
 SELECT `name`, `shopname`
 FROM `cats` 
 left JOIN `shops`
-ON shops.id = cats.id;
+ON shops.id = cats.shops_id;
 
 -- 62. Вывести все значения , НО без Рекса (NULL)
 
 SELECT `name`, `shopname`
 FROM `cats` 
 inner JOIN `shops`
-ON shops.id = cats.id;
+ON shops.id = cats.shops_id;
 
 -- 63.  Заполнит левую таблицу пустыми значениями, если они имеются
 
@@ -388,14 +388,14 @@ INSERT INTO `cats` VALUES ("",8, 4);
 SELECT `name`, `shopname`
 FROM `cats` 
 RIGHT JOIN `shops`
-ON shops.id = cats.id;
+ON shops.id = cats.shops_id;
 
 -- 64. IINER JOIN и CROSS JOIN в mysql одинаковые (такой же рузультат, что и в №62)
 
 SELECT `name`, `shopname`
 FROM `cats` 
 CROSS JOIN `shops`
-ON shops.id = cats.id;
+ON shops.id = cats.shops_id;
 
 -- 65. "Декартово объединение" таблиц
 
@@ -414,7 +414,7 @@ NATURAL JOIN department;
 SELECT shopname
 FROM shops s
 LEFT JOIN cats c
-ON (s.id=c.id)
+ON s.id=c.shops_id
 WHERE name = 'Murzik';
 
 -- 68. Отобразим информацию об котах и их магазинах
@@ -427,7 +427,7 @@ JOIN shops;
 SELECT connection_date
 FROM product p
 JOIN product_type p_t
-ON p.id=p_t.id;
+ON p.id_product_type=p_t.id;
 
 -- 70. Тип продукта и его имя по ID
 
@@ -503,7 +503,7 @@ GROUP BY post;
 
 SELECT `name`, COUNT(*) AS `number_of_cats_name`
 FROM `cats`
-WHERE id > 1
+WHERE cats.name =! "Nemo" 
 GROUP BY `name`
 HAVING COUNT(*) > 0;
 
@@ -515,9 +515,9 @@ GROUP BY `shopname`;
 
 -- 83. Выведем зарплату в порядке убывания, причем работник не должен работать в офисе 2
 
-SELECT SUM(`salary`) AS 'payroll' , `fullname` AS 'specialist_FIO'
+SELECT SUM(`salary`) AS 'payroll' , `fullname` AS `specialist_FIO`,`work_experience`
 FROM `specialist`
-WHERE id_department > 2
+WHERE fullname != "Меркушов М.С." AND work_experience != '4 года'
 GROUP BY fullname
 ORDER BY 1 DESC;
 
@@ -525,7 +525,7 @@ ORDER BY 1 DESC;
 
 SELECT AVG(salary) AS `pay`, `fullname` AS `FIO`
 FROM `specialist`
-WHERE id_department < 14
+WHERE post = "Специалист отдела"
 GROUP BY fullname;
 
 -- UNION, GROUP_CONCAT
@@ -551,10 +551,9 @@ WHERE salary <= 500000;
 
 SELECT `connection_date` AS `connect_date`,`description` AS `d-t`
 FROM `product` 
-WHERE id <=5
+WHERE DATE (connection_date) >= "2015-05-20" AND DATE (connection_date) <="2021-05-20"
 UNION SELECT`connection_date` AS `connect_date`,`description` AS `d-t`
-FROM `product`
-WHERE id>=5;
+FROM `product`;
 
 -- 88. Выведем повторяющиеся значения
 
@@ -664,7 +663,7 @@ WHERE c.fullname =  'Авдеева А.А.';
 SELECT amountINT, `fullname`
 FROM сlient c 
 LEFT JOIN `action` a
-ON a.id = c.id
+ON a.id_сlient = c.id
 ORDER BY amountINT DESC
 LIMIT 3;
 
@@ -673,6 +672,6 @@ LIMIT 3;
 SELECT id_specialist,fullname
 FROM specialist s
 LEFT JOIN petition p
-ON s.id = p.id
+ON s.id_petition = p.id
 ORDER BY id_specialist DESC
 LIMIT 1;
