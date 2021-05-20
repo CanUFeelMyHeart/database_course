@@ -241,32 +241,7 @@ SELECT Cashback(amountINT)
 FROM`action`
 WHERE id < 11;
 
-<<<<<<< HEAD
--- Мода
-
-DELIMITER //
-CREATE PROCEDURE createPetition ( 
-	OUT
-	idType INT,
-    idClient INT,
-    termOfExecution DATE
-)
-BEGIN
-    SELECT client.id,specialist.id,petition.id,petiton.term_of_execution, petition.text
-    FROM client
-    JOIN petition 
-    ON client.id = petiton.id
-    JOIN specialist 
-    ON petition.id = specialist.id;
-	SELECT petiton.term_of_execution AS correctDate 
-    FROM petiton
-    WHERE DATE (petiton.term_of_execution) >= "2021-05-20" AND DATE (petiton.term_of_execution) <= "2021-06-20";
-    IF DATE (petiton.term_of_execution) >= "2021-05-20" AND DATE (petiton.term_of_execution) <= "2021-06-20"
-		THEN SET =
-    
-END//
-DELIMITER ;
-=======
+-- Представления.
 -- 1. 
 
 -- Аналог №54. INNER JOIN. Выведем название отдела и его состав
@@ -303,4 +278,28 @@ ON a.account_subject_id = p.id
 LEFT JOIN `action_type` a_t
 ON a.id_type_of_action = a_t.id
 WHERE c.fullname =  'Авдеева А.А.';
->>>>>>> 203edfd79227d251a710101bbbd8a29565abb19d
+ 
+ -- Мода
+ 
+ DELIMITER //
+CREATE PROCEDURE createPetition ( 
+	OUT
+	idType INT,
+    idClient INT,
+    termOfExecution DATE
+)
+BEGIN
+    SELECT client.id,specialist.id,petition.id,petiton.term_of_execution, petition.text
+    FROM client
+    JOIN petition 
+    ON client.id = petiton.id
+    JOIN specialist 
+    ON petition.id = specialist.id;
+	SELECT petiton.term_of_execution AS correctDate 
+    FROM petiton
+    WHERE DATE (petiton.term_of_execution) >= "2021-05-20" AND DATE (petiton.term_of_execution) <= "2021-06-20";
+    IF DATE (petiton.term_of_execution) >= "2021-05-20" AND DATE (petiton.term_of_execution) <= "2021-06-20"
+		THEN SET =
+    
+END//
+DELIMITER ;
