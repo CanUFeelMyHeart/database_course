@@ -241,6 +241,7 @@ SELECT Cashback(amountINT)
 FROM`action`
 WHERE id < 11;
 
+<<<<<<< HEAD
 -- Мода
 
 DELIMITER //
@@ -265,3 +266,41 @@ BEGIN
     
 END//
 DELIMITER ;
+=======
+-- 1. 
+
+-- Аналог №54. INNER JOIN. Выведем название отдела и его состав
+
+CREATE VIEW specialistPertition
+AS SELECT   `staff`, `name`
+FROM  `department` AS `d`
+JOIN `department_type` AS `d_t`
+ON d.id = d_t.id;
+
+-- 2
+
+-- 55. Такая же логика: название банковского продукта + описание по ID
+
+CREATE VIEW prudctToProductType
+AS SELECT `name`, `description`
+FROM `product` AS `p`
+JOIN `product_type` AS `p_t`
+ON p.id = p_t.id;
+
+-- 3.
+
+-- Для заданного клиента по ФИО вывести выписку о его действиях по его продуктам.
+-- В действиях приjoinить ID, тип действия , без отделения
+
+
+CREATE VIEW actionAndType
+AS SELECT  id_type_of_action AS new_id_type_of_action , fullname,`name`, `amount`
+FROM сlient c 
+LEFT JOIN  `product` p 
+ON p.id_client = c.id
+LEFT JOIN `action` a
+ON a.account_subject_id = p.id
+LEFT JOIN `action_type` a_t
+ON a.id_type_of_action = a_t.id
+WHERE c.fullname =  'Авдеева А.А.';
+>>>>>>> 203edfd79227d251a710101bbbd8a29565abb19d
