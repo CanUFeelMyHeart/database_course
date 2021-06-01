@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "nMlyMsJRRX3n2xTIyOmmB3m3RBYqXvEhGAWKlNM3EsNn0E1kDXxSrf71oTxjf3nxcKlrW4MTStbDmzBxBHZlZw==",
+  "dgSpecHash": "aWPWM7xpox68v7yxKdu+ZKb0aOpyTdMXvAj1nIGEym0NvnJEe7RmnyIyjAE2fOpZYM/pa6rMxSsF3AHdMHkMfw==",
   "success": true,
-  "projectFilePath": "F:\\database_course\\DBConnection\\DBConnection\\DBConnection.csproj",
+  "projectFilePath": "F:\\database_course\\laboratory_work\\DBConnection(lab_6)\\DBConnection\\DBConnection.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Жанна\\.nuget\\packages\\bouncycastle.netcore\\1.8.5\\bouncycastle.netcore.1.8.5.nupkg.sha512",
     "C:\\Users\\Жанна\\.nuget\\packages\\google.protobuf\\3.14.0\\google.protobuf.3.14.0.nupkg.sha512",

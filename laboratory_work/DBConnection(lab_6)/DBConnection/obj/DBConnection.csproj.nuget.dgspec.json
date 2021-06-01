@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "F:\\database_course\\DBConnection\\DBConnection\\DBConnection.csproj": {}
+    "F:\\database_course\\laboratory_work\\DBConnection(lab_6)\\DBConnection\\DBConnection.csproj": {}
   },
   "projects": {
-    "F:\\database_course\\DBConnection\\DBConnection\\DBConnection.csproj": {
+    "F:\\database_course\\laboratory_work\\DBConnection(lab_6)\\DBConnection\\DBConnection.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "F:\\database_course\\DBConnection\\DBConnection\\DBConnection.csproj",
+        "projectUniqueName": "F:\\database_course\\laboratory_work\\DBConnection(lab_6)\\DBConnection\\DBConnection.csproj",
         "projectName": "DBConnection",
-        "projectPath": "F:\\database_course\\DBConnection\\DBConnection\\DBConnection.csproj",
+        "projectPath": "F:\\database_course\\laboratory_work\\DBConnection(lab_6)\\DBConnection\\DBConnection.csproj",
         "packagesPath": "C:\\Users\\Жанна\\.nuget\\packages\\",
-        "outputPath": "F:\\database_course\\DBConnection\\DBConnection\\obj\\",
+        "outputPath": "F:\\database_course\\laboratory_work\\DBConnection(lab_6)\\DBConnection\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Жанна\\AppData\\Roaming\\NuGet\\NuGet.Config",

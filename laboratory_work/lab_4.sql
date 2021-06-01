@@ -660,18 +660,22 @@ WHERE c.fullname =  'Авдеева А.А.';
 
 -- 2. Вывести клиентов, у которых сумма операций максимальна. Топ - 3.
 
-SELECT amountINT, `fullname`
+SELECT sum(amountINT), `fullname`,action_type.description
 FROM сlient c 
 LEFT JOIN `action` a
-ON a.id_сlient = c.id
-ORDER BY amountINT DESC
+ON a.account_subject_id = c.id
+JOIN action_type
+ON action_type.id = id_type_of_action
+GROUP BY fullname
+ORDER BY sum(amountINT) DESC
 LIMIT 3;
 
 -- 3. Вывести специалиста, на которого подали больше всего жалоб.
 
-SELECT id_specialist,fullname
+SELECT COUNT(*)id_specialist AS count_of_petition,fullname
 FROM specialist s
 LEFT JOIN petition p
-ON s.id_petition = p.id
+ON s.id = p.id_specialist
+GROUP BY fullname
 ORDER BY id_specialist DESC
 LIMIT 1;
