@@ -19,4 +19,4 @@
 
 6)["Взаимодействие с БД из приложения"](/laboratory_work/DB6-7/MichaelDB67/)
 
-7).["Курсовая работа "].(/laboratory_work/DB6-7/MichaelDB67/)
+7).["Курсовая работа"].(/laboratory_work/DB6-7/MichaelDB67/)
