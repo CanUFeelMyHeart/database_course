@@ -17,5 +17,5 @@
 
 5)["Индексы, хранимые процедуры, представления"](/laboratory_work/lab_5.sql)
 
-6)["Взаимодействие с БД из приложения"](/laboratory_work/DBConnection(lab_6))
+6)["Взаимодействие с БД из приложения"](/laboratory_work/DB6-7/MichaelDB67/)
 
